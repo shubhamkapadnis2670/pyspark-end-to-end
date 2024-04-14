@@ -1,0 +1,165 @@
+2024-04-14 16:09:02,791 - root - INFO - i am the main method
+2024-04-14 16:09:02,791 - root - INFO - calling spark object
+2024-04-14 16:09:02,791 - Create_spark - INFO - get_spark_object_started
+2024-04-14 16:09:02,791 - Create_spark - INFO - master is local[*]
+2024-04-14 16:09:04,739 - Create_spark - INFO - spark object created 
+2024-04-14 16:09:04,739 - root - INFO - validating spark object
+2024-04-14 16:09:04,739 - Validate - WARNING - started get_current_date method...
+2024-04-14 16:09:06,682 - Validate - WARNING - validating spark object with current date [Row(current_date()=datetime.date(2024, 4, 14))]
+2024-04-14 16:09:06,682 - Validate - WARNING - validation done , get started
+2024-04-14 16:09:06,682 - root - INFO - reading file which is of parquet
+2024-04-14 16:09:06,683 - Ingest - WARNING - load_files method started
+2024-04-14 16:09:07,023 - Ingest - WARNING - dataframe created successfully which is of parquet
+2024-04-14 16:09:07,025 - root - INFO - displaying the dataframe DataFrame[city: string, city_ascii: string, state_id: string, state_name: string, county_fips: int, county_name: string, lat: double, lng: double, population: int, density: int, timezone: string, zips: string]
+2024-04-14 16:09:08,106 - root - INFO - validating the dataframe...
+2024-04-14 16:09:08,107 - Ingest - WARNING - here to count the records in the df_city
+2024-04-14 16:09:08,363 - Ingest - WARNING - Number of records present in the DataFrame[city: string, city_ascii: string, state_id: string, state_name: string, county_fips: int, county_name: string, lat: double, lng: double, population: int, density: int, timezone: string, zips: string] are 28338
+2024-04-14 16:09:08,364 - root - INFO - reading file which is of csv
+2024-04-14 16:09:08,364 - Ingest - WARNING - load_files method started
+2024-04-14 16:09:09,643 - Ingest - WARNING - dataframe created successfully which is of csv
+2024-04-14 16:09:09,644 - root - INFO - displaying the dataframe DataFrame[npi: int, nppes_provider_last_org_name: string, nppes_provider_first_name: string, nppes_provider_city: string, nppes_provider_state: string, specialty_description: string, description_flag: string, drug_name: string, generic_name: string, bene_count: int, total_claim_count: int, total_30_day_fill_count: double, total_day_supply: int, total_drug_cost: double, bene_count_ge65: int, bene_count_ge65_suppress_flag: string, total_claim_count_ge65: int, ge65_suppress_flag: string, total_30_day_fill_count_ge65: double, total_day_supply_ge65: int, total_drug_cost_ge65: double, years_of_exp: string]
+2024-04-14 16:09:09,785 - root - INFO - validating the dataframe...
+2024-04-14 16:09:09,785 - Ingest - WARNING - here to count the records in the df_fact
+2024-04-14 16:09:10,050 - Ingest - WARNING - Number of records present in the DataFrame[npi: int, nppes_provider_last_org_name: string, nppes_provider_first_name: string, nppes_provider_city: string, nppes_provider_state: string, specialty_description: string, description_flag: string, drug_name: string, generic_name: string, bene_count: int, total_claim_count: int, total_30_day_fill_count: double, total_day_supply: int, total_drug_cost: double, bene_count_ge65: int, bene_count_ge65_suppress_flag: string, total_claim_count_ge65: int, ge65_suppress_flag: string, total_30_day_fill_count_ge65: double, total_day_supply_ge65: int, total_drug_cost_ge65: double, years_of_exp: string] are 1329329
+2024-04-14 16:09:10,050 - root - INFO - implementing data processing methods
+2024-04-14 16:09:10,050 - Data_processing - WARNING - data_clean method started.....
+2024-04-14 16:09:10,050 - Data_processing - WARNING - selecting required columns from olap dataset and converting some column into upper case
+2024-04-14 16:09:10,071 - Data_processing - WARNING - working on oltp dataset and selecting couple of columns and rename..
+2024-04-14 16:09:10,116 - Data_processing - WARNING - adding new column to df_presc_sel
+2024-04-14 16:09:10,123 - Data_processing - WARNING - converting years_of_exp from string to int and replacing =
+2024-04-14 16:09:10,141 - Data_processing - WARNING - concat first and last name to form column presc_fullname and dropping those two columns
+2024-04-14 16:09:10,160 - Data_processing - WARNING - check for null in all columns and dropping null values where null_values > 10
+2024-04-14 16:09:10,348 - Data_processing - WARNING - before dropping null values, total number of rows are 1329329
+2024-04-14 16:09:15,801 - Data_processing - WARNING - after dropping null values, total number of rows are 1329292
+2024-04-14 16:09:15,802 - Data_processing - WARNING - data_clean() methods execution done, go frwd
+2024-04-14 16:09:15,974 - root - INFO - validating schema for dataframes
+2024-04-14 16:09:15,975 - Validate - WARNING - print schema method executing for dataframe df_city
+2024-04-14 16:09:15,975 - Validate - INFO - 	StructField('city', StringType(), True)
+2024-04-14 16:09:15,975 - Validate - INFO - 	StructField('state_id', StringType(), True)
+2024-04-14 16:09:15,975 - Validate - INFO - 	StructField('state_name', StringType(), True)
+2024-04-14 16:09:15,975 - Validate - INFO - 	StructField('county_name', StringType(), True)
+2024-04-14 16:09:15,975 - Validate - INFO - 	StructField('population', IntegerType(), True)
+2024-04-14 16:09:15,976 - Validate - INFO - 	StructField('zips', StringType(), True)
+2024-04-14 16:09:15,976 - Validate - INFO - print schema done....go frwd
+2024-04-14 16:09:15,976 - Validate - WARNING - print schema method executing for dataframe df_fact
+2024-04-14 16:09:15,976 - Validate - INFO - 	StructField('presc_id', IntegerType(), True)
+2024-04-14 16:09:15,976 - Validate - INFO - 	StructField('presc_city', StringType(), True)
+2024-04-14 16:09:15,976 - Validate - INFO - 	StructField('presc_state', StringType(), True)
+2024-04-14 16:09:15,976 - Validate - INFO - 	StructField('presc_spclt', StringType(), True)
+2024-04-14 16:09:15,976 - Validate - INFO - 	StructField('drug_name', StringType(), True)
+2024-04-14 16:09:15,976 - Validate - INFO - 	StructField('tx_cnt', IntegerType(), True)
+2024-04-14 16:09:15,976 - Validate - INFO - 	StructField('total_day_supply', IntegerType(), True)
+2024-04-14 16:09:15,976 - Validate - INFO - 	StructField('total_drug_cost', DoubleType(), True)
+2024-04-14 16:09:15,977 - Validate - INFO - 	StructField('total_drug_cost', DoubleType(), True)
+2024-04-14 16:09:15,977 - Validate - INFO - 	StructField('years_of_exp', IntegerType(), True)
+2024-04-14 16:09:15,977 - Validate - INFO - 	StructField('country_name', StringType(), False)
+2024-04-14 16:09:15,977 - Validate - INFO - 	StructField('presc_fullname', StringType(), False)
+2024-04-14 16:09:15,977 - Validate - INFO - print schema done....go frwd
+2024-04-14 16:09:15,977 - root - INFO - data trsnformation executing
+2024-04-14 16:09:15,977 - Data_transformation - WARNING - processing data_report1 method...
+2024-04-14 16:09:15,977 - Data_transformation - WARNING - calculationg total zip counts in DataFrame[city: string, state_id: string, state_name: string, county_name: string, population: int, zips: string]
+2024-04-14 16:09:15,997 - Data_transformation - WARNING - calculating distinct prescribers and total tx_cnt
+2024-04-14 16:09:16,022 - Data_transformation - WARNING - do not report a city if no prescriber is assigned to it...lets join df_city_sel and df_presc_sel
+2024-04-14 16:09:16,055 - Data_transformation - WARNING - DAta report1 successfully executed
+2024-04-14 16:09:16,055 - root - INFO - displaying the data_report1
+2024-04-14 16:09:18,460 - Data_transformation - WARNING - executing data_report2 method
+2024-04-14 16:09:18,461 - Data_transformation - WARNING - executing the task ::: consider the prescriber only from 20 to 50 years_of_exp and rank the prescribers based on their tx_cnt for each state
+2024-04-14 16:09:18,539 - Data_transformation - WARNING - data_report2 method executed successfully
+2024-04-14 16:09:18,539 - root - INFO - displaying the data_report_2
+2024-04-14 16:09:19,987 - Extraction - WARNING - extract_files method started successfully
+2024-04-14 16:09:21,936 - Extraction - WARNING - successfully extracted files...
+2024-04-14 16:09:21,936 - Extraction - WARNING - extract_files method started successfully
+2024-04-14 16:09:23,279 - Extraction - WARNING - successfully extracted files...
+2024-04-14 16:09:23,279 - root - INFO - writing into hive table
+2024-04-14 16:09:23,279 - Persist - WARNING - persisting the data into hive table for dataframe df_city
+2024-04-14 16:09:23,279 - Persist - WARNING - creating database
+2024-04-14 16:09:25,367 - Persist - WARNING - no writing DataFrame[city: string, state_name: string, county_name: string, population: int, zip_counts: int, presc_count: bigint] into hive table state_name
+2024-04-14 16:09:28,216 - Persist - WARNING - successfully executed data_hive_persist_city method
+2024-04-14 16:09:28,217 - Persist - WARNING - persisting the data into hive table for dataframe df_fact
+2024-04-14 16:09:28,217 - Persist - WARNING - creating database
+2024-04-14 16:09:28,231 - Persist - WARNING - no writing DataFrame[presc_id: int, presc_fullname: string, presc_state: string, country_name: string, years_of_exp: int, tx_cnt: int, total_day_supply: int, total_drug_cost: double, dense_rank: int] into hive table presc_state
+2024-04-14 16:09:30,079 - Persist - WARNING - successfully executed data_hive_persist_presc method
+2024-04-14 16:09:30,079 - root - INFO - now write DataFrame[city: string, state_name: string, county_name: string, population: int, zip_counts: int, presc_count: bigint] in mysql
+2024-04-14 16:10:07,217 - root - INFO - i am the main method
+2024-04-14 16:10:07,217 - root - INFO - calling spark object
+2024-04-14 16:10:07,217 - Create_spark - INFO - get_spark_object_started
+2024-04-14 16:10:07,217 - Create_spark - INFO - master is local[*]
+2024-04-14 16:10:09,162 - Create_spark - INFO - spark object created 
+2024-04-14 16:10:09,162 - root - INFO - validating spark object
+2024-04-14 16:10:09,162 - Validate - WARNING - started get_current_date method...
+2024-04-14 16:10:11,080 - Validate - WARNING - validating spark object with current date [Row(current_date()=datetime.date(2024, 4, 14))]
+2024-04-14 16:10:11,080 - Validate - WARNING - validation done , get started
+2024-04-14 16:10:11,081 - root - INFO - reading file which is of parquet
+2024-04-14 16:10:11,081 - Ingest - WARNING - load_files method started
+2024-04-14 16:10:11,401 - Ingest - WARNING - dataframe created successfully which is of parquet
+2024-04-14 16:10:11,403 - root - INFO - displaying the dataframe DataFrame[city: string, city_ascii: string, state_id: string, state_name: string, county_fips: int, county_name: string, lat: double, lng: double, population: int, density: int, timezone: string, zips: string]
+2024-04-14 16:10:12,488 - root - INFO - validating the dataframe...
+2024-04-14 16:10:12,488 - Ingest - WARNING - here to count the records in the df_city
+2024-04-14 16:10:12,754 - Ingest - WARNING - Number of records present in the DataFrame[city: string, city_ascii: string, state_id: string, state_name: string, county_fips: int, county_name: string, lat: double, lng: double, population: int, density: int, timezone: string, zips: string] are 28338
+2024-04-14 16:10:12,754 - root - INFO - reading file which is of csv
+2024-04-14 16:10:12,754 - Ingest - WARNING - load_files method started
+2024-04-14 16:10:14,076 - Ingest - WARNING - dataframe created successfully which is of csv
+2024-04-14 16:10:14,081 - root - INFO - displaying the dataframe DataFrame[npi: int, nppes_provider_last_org_name: string, nppes_provider_first_name: string, nppes_provider_city: string, nppes_provider_state: string, specialty_description: string, description_flag: string, drug_name: string, generic_name: string, bene_count: int, total_claim_count: int, total_30_day_fill_count: double, total_day_supply: int, total_drug_cost: double, bene_count_ge65: int, bene_count_ge65_suppress_flag: string, total_claim_count_ge65: int, ge65_suppress_flag: string, total_30_day_fill_count_ge65: double, total_day_supply_ge65: int, total_drug_cost_ge65: double, years_of_exp: string]
+2024-04-14 16:10:14,232 - root - INFO - validating the dataframe...
+2024-04-14 16:10:14,232 - Ingest - WARNING - here to count the records in the df_fact
+2024-04-14 16:10:14,486 - Ingest - WARNING - Number of records present in the DataFrame[npi: int, nppes_provider_last_org_name: string, nppes_provider_first_name: string, nppes_provider_city: string, nppes_provider_state: string, specialty_description: string, description_flag: string, drug_name: string, generic_name: string, bene_count: int, total_claim_count: int, total_30_day_fill_count: double, total_day_supply: int, total_drug_cost: double, bene_count_ge65: int, bene_count_ge65_suppress_flag: string, total_claim_count_ge65: int, ge65_suppress_flag: string, total_30_day_fill_count_ge65: double, total_day_supply_ge65: int, total_drug_cost_ge65: double, years_of_exp: string] are 1329329
+2024-04-14 16:10:14,486 - root - INFO - implementing data processing methods
+2024-04-14 16:10:14,486 - Data_processing - WARNING - data_clean method started.....
+2024-04-14 16:10:14,486 - Data_processing - WARNING - selecting required columns from olap dataset and converting some column into upper case
+2024-04-14 16:10:14,509 - Data_processing - WARNING - working on oltp dataset and selecting couple of columns and rename..
+2024-04-14 16:10:14,539 - Data_processing - WARNING - adding new column to df_presc_sel
+2024-04-14 16:10:14,546 - Data_processing - WARNING - converting years_of_exp from string to int and replacing =
+2024-04-14 16:10:14,564 - Data_processing - WARNING - concat first and last name to form column presc_fullname and dropping those two columns
+2024-04-14 16:10:14,584 - Data_processing - WARNING - check for null in all columns and dropping null values where null_values > 10
+2024-04-14 16:10:14,798 - Data_processing - WARNING - before dropping null values, total number of rows are 1329329
+2024-04-14 16:10:20,122 - Data_processing - WARNING - after dropping null values, total number of rows are 1329292
+2024-04-14 16:10:20,122 - Data_processing - WARNING - data_clean() methods execution done, go frwd
+2024-04-14 16:10:20,287 - root - INFO - validating schema for dataframes
+2024-04-14 16:10:20,287 - Validate - WARNING - print schema method executing for dataframe df_city
+2024-04-14 16:10:20,288 - Validate - INFO - 	StructField('city', StringType(), True)
+2024-04-14 16:10:20,288 - Validate - INFO - 	StructField('state_id', StringType(), True)
+2024-04-14 16:10:20,288 - Validate - INFO - 	StructField('state_name', StringType(), True)
+2024-04-14 16:10:20,288 - Validate - INFO - 	StructField('county_name', StringType(), True)
+2024-04-14 16:10:20,288 - Validate - INFO - 	StructField('population', IntegerType(), True)
+2024-04-14 16:10:20,288 - Validate - INFO - 	StructField('zips', StringType(), True)
+2024-04-14 16:10:20,288 - Validate - INFO - print schema done....go frwd
+2024-04-14 16:10:20,288 - Validate - WARNING - print schema method executing for dataframe df_fact
+2024-04-14 16:10:20,289 - Validate - INFO - 	StructField('presc_id', IntegerType(), True)
+2024-04-14 16:10:20,289 - Validate - INFO - 	StructField('presc_city', StringType(), True)
+2024-04-14 16:10:20,289 - Validate - INFO - 	StructField('presc_state', StringType(), True)
+2024-04-14 16:10:20,289 - Validate - INFO - 	StructField('presc_spclt', StringType(), True)
+2024-04-14 16:10:20,289 - Validate - INFO - 	StructField('drug_name', StringType(), True)
+2024-04-14 16:10:20,289 - Validate - INFO - 	StructField('tx_cnt', IntegerType(), True)
+2024-04-14 16:10:20,289 - Validate - INFO - 	StructField('total_day_supply', IntegerType(), True)
+2024-04-14 16:10:20,289 - Validate - INFO - 	StructField('total_drug_cost', DoubleType(), True)
+2024-04-14 16:10:20,289 - Validate - INFO - 	StructField('total_drug_cost', DoubleType(), True)
+2024-04-14 16:10:20,289 - Validate - INFO - 	StructField('years_of_exp', IntegerType(), True)
+2024-04-14 16:10:20,289 - Validate - INFO - 	StructField('country_name', StringType(), False)
+2024-04-14 16:10:20,289 - Validate - INFO - 	StructField('presc_fullname', StringType(), False)
+2024-04-14 16:10:20,289 - Validate - INFO - print schema done....go frwd
+2024-04-14 16:10:20,289 - root - INFO - data trsnformation executing
+2024-04-14 16:10:20,289 - Data_transformation - WARNING - processing data_report1 method...
+2024-04-14 16:10:20,289 - Data_transformation - WARNING - calculationg total zip counts in DataFrame[city: string, state_id: string, state_name: string, county_name: string, population: int, zips: string]
+2024-04-14 16:10:20,311 - Data_transformation - WARNING - calculating distinct prescribers and total tx_cnt
+2024-04-14 16:10:20,345 - Data_transformation - WARNING - do not report a city if no prescriber is assigned to it...lets join df_city_sel and df_presc_sel
+2024-04-14 16:10:20,371 - Data_transformation - WARNING - DAta report1 successfully executed
+2024-04-14 16:10:20,371 - root - INFO - displaying the data_report1
+2024-04-14 16:10:22,926 - Data_transformation - WARNING - executing data_report2 method
+2024-04-14 16:10:22,926 - Data_transformation - WARNING - executing the task ::: consider the prescriber only from 20 to 50 years_of_exp and rank the prescribers based on their tx_cnt for each state
+2024-04-14 16:10:23,011 - Data_transformation - WARNING - data_report2 method executed successfully
+2024-04-14 16:10:23,011 - root - INFO - displaying the data_report_2
+2024-04-14 16:10:24,442 - Extraction - WARNING - extract_files method started successfully
+2024-04-14 16:10:26,316 - Extraction - WARNING - successfully extracted files...
+2024-04-14 16:10:26,316 - Extraction - WARNING - extract_files method started successfully
+2024-04-14 16:10:27,581 - Extraction - WARNING - successfully extracted files...
+2024-04-14 16:10:27,581 - root - INFO - writing into hive table
+2024-04-14 16:10:27,581 - Persist - WARNING - persisting the data into hive table for dataframe df_city
+2024-04-14 16:10:27,581 - Persist - WARNING - creating database
+2024-04-14 16:10:29,645 - Persist - WARNING - no writing DataFrame[city: string, state_name: string, county_name: string, population: int, zip_counts: int, presc_count: bigint] into hive table state_name
+2024-04-14 16:10:32,437 - Persist - WARNING - successfully executed data_hive_persist_city method
+2024-04-14 16:10:32,438 - Persist - WARNING - persisting the data into hive table for dataframe df_fact
+2024-04-14 16:10:32,438 - Persist - WARNING - creating database
+2024-04-14 16:10:32,454 - Persist - WARNING - no writing DataFrame[presc_id: int, presc_fullname: string, presc_state: string, country_name: string, years_of_exp: int, tx_cnt: int, total_day_supply: int, total_drug_cost: double, dense_rank: int] into hive table presc_state
+2024-04-14 16:10:34,291 - Persist - WARNING - successfully executed data_hive_persist_presc method
+2024-04-14 16:10:34,291 - root - INFO - total amount time taken to execute application 27.07 seconds
+2024-04-14 16:10:34,291 - root - INFO - Application done
